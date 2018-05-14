@@ -2,7 +2,7 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 
 export default function createHOC(
   hocName,
-  paramsAndComponentToComponent,
+  componentAndParamsToComponent,
   {
     passedProps = [],
     contextTypes = {},
@@ -11,7 +11,7 @@ export default function createHOC(
 ) {
   return function hocFactory(...params) {
     return function hoc(ComponentToWrap) {
-      const NewComponent = paramsAndComponentToComponent(...params, ComponentToWrap);
+      const NewComponent = componentAndParamsToComponent(ComponentToWrap, params);
 
       NewComponent.WrappedComponent = ComponentToWrap;
       NewComponent.displayName = `${hocName}(${ComponentToWrap.displayName || ComponentToWrap.name})`;
