@@ -4,6 +4,7 @@
   "description": "Create a React Higher-Order Component (HOC) following best practices",
   "main": "lib/index.js",
   "scripts": {
+    "lint": "eslint src test",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +18,12 @@
   "homepage": "https://github.com/airbnb/react-create-hoc#readme",
   "dependencies": {
     "hoist-non-react-statics": "^2.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2"
   }
 }
