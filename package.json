@@ -1,0 +1,19 @@
+{
+  "name": "react-create-hoc",
+  "version": "0.0.0",
+  "description": "Create a React Higher-Order Component (HOC) following best practices",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airbnb/react-create-hoc.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/airbnb/react-create-hoc/issues"
+  },
+  "homepage": "https://github.com/airbnb/react-create-hoc#readme",
+  "dependencies": {}
+}
