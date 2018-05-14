@@ -4,8 +4,8 @@
   "description": "Create a React Higher-Order Component (HOC) following best practices",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint src test",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --ignore-pattern 'dist/' .",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,13 +17,32 @@
   },
   "homepage": "https://github.com/airbnb/react-create-hoc#readme",
   "dependencies": {
-    "hoist-non-react-statics": "^2.5.0"
+    "hoist-non-react-statics": "^2.5.0",
+    "object.assign": "^4.1.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^22.4.3",
+    "babel-plugin-transform-replace-object-assign": "^1.0.0",
+    "babel-preset-airbnb": "^2.4.0",
+    "chai": "^4.1.2",
+    "chai-enzyme": "^1.0.0-beta.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-adapter-react-helper": "^1.2.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.8.2"
+    "eslint-plugin-react": "^7.8.2",
+    "jest": "^22.4.3",
+    "react": "^0.14 || ^15 || ^16",
+    "react-dom": "^0.14 || ^15 || ^16",
+    "sinon": "^4.5.0",
+    "sinon-chai": "^3.0.0",
+    "sinon-sandbox": "^1.0.2"
+  },
+  "peerDependencies": {
+    "react": "^0.14 || ^15 || ^16"
   }
 }
