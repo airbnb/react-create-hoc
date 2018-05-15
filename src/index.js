@@ -24,6 +24,7 @@ export default function createHOC(
         const copiedProps = {
           ...ComponentToWrap.propTypes,
         };
+
         passedProps.forEach((propName) => {
           delete copiedProps[propName];
         });
