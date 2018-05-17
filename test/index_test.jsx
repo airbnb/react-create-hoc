@@ -114,19 +114,22 @@ describe('createHOC', () => {
   });
 
   describe('with a component wrapper that requires new props to be passed', () => {
+    const wrapperComponentPropTypes = {
+      fooBar: PropTypes.string.isRequired,
+    };
+
     beforeEach(() => {
-      componentWrapper = Component => (
-        function WithDerivedAB(props) {
-          // eslint-disable-next-line react/prop-types
-          const { fooBar, ...rest } = props;
-          return <Component a={fooBar.toUpperCase()} b={fooBar.slice(0, 1)} {...rest} />;
-        }
-      );
+      componentWrapper = (Component) => {
+        const WithDerivedAB = ({ fooBar, ...rest }) => ((
+          <Component a={fooBar.toUpperCase()} b={fooBar.slice(0, 1)} {...rest} />
+        ));
+
+        WithDerivedAB.propTypes = wrapperComponentPropTypes;
+
+        return WithDerivedAB;
+      };
       options = {
         passedProps: ['a', 'b'],
-        addedPropTypes: {
-          fooBar: PropTypes.string.isRequired,
-        },
       };
     });
 
@@ -145,7 +148,33 @@ describe('createHOC', () => {
         const WrappedComponent = getWrappedComponent();
         const { a, b, ...expected } = BasicSFC.propTypes;
         expect(WrappedComponent.propTypes).to.eql({
-          ...options.addedPropTypes,
+          ...wrapperComponentPropTypes,
+          ...expected,
+        });
+      });
+    });
+  });
+
+  describe('with a component wrapper that requires new props to be passed and has no prop types', () => {
+    beforeEach(() => {
+      componentWrapper = Component => (
+        // eslint-disable-next-line react/prop-types
+        function WithDerivedAB({ fooBar, ...rest }) {
+          return <Component a={fooBar.toUpperCase()} b={fooBar.slice(0, 1)} {...rest} />;
+        }
+      );
+      options = {
+        passedProps: ['a', 'b'],
+      };
+    });
+
+    describe('when passed BasicSFC', () => {
+      const getWrappedComponent = () => getHOC()()(BasicSFC);
+
+      it('copies over props from the wrapped component', () => {
+        const WrappedComponent = getWrappedComponent();
+        const { a, b, ...expected } = BasicSFC.propTypes;
+        expect(WrappedComponent.propTypes).to.eql({
           ...expected,
         });
       });

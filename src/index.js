@@ -6,7 +6,6 @@ export default function createHOC(
   {
     passedProps = [],
     contextTypes = {},
-    addedPropTypes = {},
   } = {},
 ) {
   return function hocFactory(...params) {
@@ -31,7 +30,7 @@ export default function createHOC(
 
         NewComponent.propTypes = {
           ...copiedProps,
-          ...addedPropTypes,
+          ...NewComponent.propTypes,
         };
       }
 
