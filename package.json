@@ -2,10 +2,14 @@
   "name": "react-create-hoc",
   "version": "0.0.0",
   "description": "Create a React Higher-Order Component (HOC) following best practices",
-  "main": "lib/index.js",
+  "main": "./dist",
   "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir dist",
     "lint": "eslint --ignore-pattern 'dist/' .",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "safe-publish-latest && npm run build"
   },
   "repository": {
     "type": "git",
@@ -40,6 +44,8 @@
     "prop-types": "^15.6.1",
     "react": "^0.14 || ^15 || ^16",
     "react-dom": "^0.14 || ^15 || ^16",
+    "rimraf": "^2.6.2",
+    "safe-publish-latest": "^1.1.1",
     "sinon": "^4.5.0",
     "sinon-chai": "^3.0.0",
     "sinon-sandbox": "^1.0.2"

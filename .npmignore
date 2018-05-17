@@ -64,6 +64,3 @@ typings/
 npm-shrinkwrap.json
 package-lock.json
 yarn.lock
-
-# build output
-dist
