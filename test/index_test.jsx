@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import casual from 'casual';
+import sloppy from 'prop-types-exact/build/sloppy';
 import createHOC from '../src';
 import BasicSFC from './fixtures/BasicSFC';
 
@@ -38,7 +39,7 @@ describe('createHOC', () => {
 
       it('properly adds propTypes to the result', () => {
         const WrappedComponent = getWrappedComponent();
-        expect(WrappedComponent.propTypes).to.eql(BasicSFC.propTypes);
+        expect(sloppy(WrappedComponent.propTypes)).to.eql(sloppy(BasicSFC.propTypes));
       });
 
       it('adds a reasonable displayName to the component', () => {
@@ -75,7 +76,7 @@ describe('createHOC', () => {
       it('removes passed props from prop types of the wrapped component', () => {
         const WrappedComponent = getWrappedComponent();
         const { a, b, ...expected } = BasicSFC.propTypes;
-        expect(WrappedComponent.propTypes).to.eql(expected);
+        expect(sloppy(WrappedComponent.propTypes)).to.eql(sloppy(expected));
       });
     });
   });
@@ -112,10 +113,10 @@ describe('createHOC', () => {
       it('adds additonal propTypes to the wrapped component', () => {
         const WrappedComponent = getWrappedComponent();
         const { a, b, ...expected } = BasicSFC.propTypes;
-        expect(WrappedComponent.propTypes).to.eql({
+        expect(sloppy(WrappedComponent.propTypes)).to.eql(sloppy({
           ...wrapperComponentPropTypes,
           ...expected,
-        });
+        }));
       });
     });
   });
@@ -140,10 +141,10 @@ describe('createHOC', () => {
       it('copies over props from the wrapped component', () => {
         const WrappedComponent = getWrappedComponent();
         const { a, b, ...expected } = BasicSFC.propTypes;
-        expect(WrappedComponent.propTypes).to.eql({
+        expect(sloppy(WrappedComponent.propTypes)).to.eql(sloppy({
           fooBar: PropTypes.string.isRequired,
           ...expected,
-        });
+        }));
       });
     });
   });

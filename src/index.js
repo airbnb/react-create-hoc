@@ -1,4 +1,6 @@
 import hoistNonReactStatics from 'hoist-non-react-statics';
+import exact from 'prop-types-exact';
+import sloppy from 'prop-types-exact/build/sloppy';
 
 const getFactoryParamErrorMessage =
   componentName => `The \`factory\` option must be \`true\` or \`false\`.
@@ -17,7 +19,7 @@ export default function createHOC(
   {
     passedProps = [],
     factory,
-    // TODO: allowExtraProps,
+    allowExtraProps,
   } = {},
 ) {
   if (!hocName || typeof hocName !== 'string') {
@@ -49,19 +51,23 @@ export default function createHOC(
 
       if (ComponentToWrap.propTypes) {
         const copiedProps = {
-          ...ComponentToWrap.propTypes,
+          ...sloppy(ComponentToWrap.propTypes),
         };
 
         passedProps.forEach((propName) => {
           delete copiedProps[propName];
         });
 
-        // TODO: should have forbidExtraProps applied and an option for allowing extra props
-        // Needs to strip out key for forbidExtraProps and call forbidExtraProps to regenerate it
-        NewComponent.propTypes = {
+        const newPropTypes = {
           ...copiedProps,
           ...NewComponent.propTypes,
         };
+
+        if (allowExtraProps) {
+          NewComponent.propTypes = newPropTypes;
+        } else {
+          NewComponent.propTypes = exact(newPropTypes);
+        }
       }
 
       return hoistNonReactStatics(NewComponent, ComponentToWrap);
