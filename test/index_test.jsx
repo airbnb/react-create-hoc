@@ -12,7 +12,9 @@ describe('createHOC', () => {
   let options;
   beforeEach(() => {
     hocName = casual.word;
-    options = {};
+    options = {
+      factory: true,
+    };
   });
 
   const getHOC = () => createHOC(hocName, componentWrapper, options);
@@ -50,14 +52,12 @@ describe('createHOC', () => {
     let aParam;
     let bParam;
     beforeEach(() => {
-      componentWrapper = (Component, [a, b]) => (
+      componentWrapper = (Component, param1, param2) => (
         function WithAB(props) {
-          return <Component a={a} b={b} {...props} />;
+          return <Component a={param1} b={param2} {...props} />;
         }
       );
-      options = {
-        passedProps: ['a', 'b'],
-      };
+      options.passedProps = ['a', 'b'];
       aParam = casual.string;
       bParam = casual.string;
     });
@@ -80,39 +80,6 @@ describe('createHOC', () => {
     });
   });
 
-  describe('with a component wrapper that adds context', () => {
-    beforeEach(() => {
-      componentWrapper = Component => (
-        function WithAB(props, context) {
-          return <Component a={context.testContext} {...props} />;
-        }
-      );
-      options = {
-        contextTypes: {
-          testContext: PropTypes.string.isRequired,
-        },
-        passedProps: ['a'],
-      };
-    });
-
-    describe('when passed BasicSFC', () => {
-      const getWrappedComponent = () => getHOC()()(BasicSFC);
-
-      it('properly passes down context', () => {
-        const WrappedComponent = getWrappedComponent();
-        const context = { testContext: casual.string };
-        expect(shallow(<WrappedComponent b="b" c="c" />, { context })).to.contain((
-          <BasicSFC a={context.testContext} b="b" c="c" />
-        ));
-      });
-
-      it('adds context types to the wrapped component', () => {
-        const WrappedComponent = getWrappedComponent();
-        expect(WrappedComponent.contextTypes).to.eql(options.contextTypes);
-      });
-    });
-  });
-
   describe('with a component wrapper that requires new props to be passed', () => {
     const wrapperComponentPropTypes = {
       fooBar: PropTypes.string.isRequired,
@@ -128,9 +95,7 @@ describe('createHOC', () => {
 
         return WithDerivedAB;
       };
-      options = {
-        passedProps: ['a', 'b'],
-      };
+      options.passedProps = ['a', 'b'];
     });
 
     describe('when passed BasicSFC', () => {
@@ -157,15 +122,16 @@ describe('createHOC', () => {
 
   describe('with a component wrapper that requires new props to be passed and has no prop types', () => {
     beforeEach(() => {
-      componentWrapper = Component => (
-        // eslint-disable-next-line react/prop-types
+      componentWrapper = (Component) => {
         function WithDerivedAB({ fooBar, ...rest }) {
           return <Component a={fooBar.toUpperCase()} b={fooBar.slice(0, 1)} {...rest} />;
         }
-      );
-      options = {
-        passedProps: ['a', 'b'],
+        WithDerivedAB.propTypes = {
+          fooBar: PropTypes.string.isRequired,
+        };
+        return WithDerivedAB;
       };
+      options.passedProps = ['a', 'b'];
     });
 
     describe('when passed BasicSFC', () => {
@@ -175,6 +141,7 @@ describe('createHOC', () => {
         const WrappedComponent = getWrappedComponent();
         const { a, b, ...expected } = BasicSFC.propTypes;
         expect(WrappedComponent.propTypes).to.eql({
+          fooBar: PropTypes.string.isRequired,
           ...expected,
         });
       });
