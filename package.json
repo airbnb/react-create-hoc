@@ -7,7 +7,7 @@
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
     "build": "babel src --out-dir dist",
-    "lint": "eslint .",
+    "lint": "eslint --ext .jsx,.js .",
     "test": "jest",
     "prepublish": "safe-publish-latest && npm run build"
   },
