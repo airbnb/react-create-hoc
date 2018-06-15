@@ -5,4 +5,6 @@ module.exports = {
   setupTestFrameworkScriptFile: './test/_helpers.jsx',
   testEnvironment: 'node',
   testRegex: '.*(\\.|/|_)(test)\\.jsx?$',
+  collectCoverage: true,
+  collectCoverageFrom: ['src/**/*.{js,jsx}'],
 };

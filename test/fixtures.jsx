@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function BasicSFC({ a, b, c }) {
+export function BasicSFC({ a, b, c }) {
   return (
     <div>
       <div id="a">{a}</div>
@@ -16,3 +16,10 @@ BasicSFC.propTypes = {
   b: PropTypes.string.isRequired,
   c: PropTypes.string.isRequired,
 };
+
+
+export function ProplessSFC() {
+  return (
+    <div>Wow!</div>
+  );
+}

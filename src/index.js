@@ -19,8 +19,8 @@ export default function createHOC(
   {
     passedProps = [],
     factory,
-    allowExtraProps,
-  } = {},
+    allowExtraProps = false,
+  },
 ) {
   if (!hocName || typeof hocName !== 'string') {
     throw new Error('A valid name for this HOC must be passed.');
@@ -60,7 +60,7 @@ export default function createHOC(
 
         const newPropTypes = {
           ...copiedProps,
-          ...NewComponent.propTypes,
+          ...(NewComponent.propTypes && sloppy(NewComponent.propTypes)),
         };
 
         if (allowExtraProps) {
@@ -68,6 +68,10 @@ export default function createHOC(
         } else {
           NewComponent.propTypes = exact(newPropTypes);
         }
+      } else if (!allowExtraProps) {
+        // Get "sloppy" propTypes before getting "exact" prop types in case
+        // the original prop types were already "exact"
+        NewComponent.propTypes = exact(sloppy(NewComponent.propTypes));
       }
 
       return hoistNonReactStatics(NewComponent, ComponentToWrap);

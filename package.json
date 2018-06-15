@@ -7,7 +7,7 @@
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
     "build": "babel src --out-dir dist",
-    "lint": "eslint --ignore-pattern 'dist/' .",
+    "lint": "eslint .",
     "test": "jest",
     "prepublish": "safe-publish-latest && npm run build"
   },
@@ -41,7 +41,7 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
-    "jest": "^22.4.3",
+    "jest": "^23.1.0",
     "prop-types": "^15.6.1",
     "react": "^0.14 || ^15 || ^16",
     "react-dom": "^0.14 || ^15 || ^16",
