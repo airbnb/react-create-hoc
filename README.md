@@ -74,6 +74,13 @@ createHOC(
   },
 );
 ```
+| Param                                                             | Type                                               | Required? | Default | Description                                                       |
+|-------------------------------------------------------------------|----------------------------------------------------|-----------|---------|-------------------------------------------------------------------|
+| [`hocName`](#hocname)                                             | `string`                                           | Yes       |         | Name of the resulting HOC                                         |
+| [`componentAndParamsToComponent`](#componentandparamstocomponent) | `(ComponentToWrap, ...params) => WrappedComponent` | Yes       |         | Function that wraps components passed to the HOC                  |
+| [`options.factory`](#optionsfactory)                              | `boolean`                                          | Yes       |         | Return a "factory"-style HOC                                      |
+| [`options.passedProps`](#optionspassedprops--)                    | `string[]`                                         |           | []      | List of props that are passed by the HOC to the wrapped component |
+| [`options.allowExtraProps`](#optionsallowextraprops--false)       | `boolean`                                          |           | false   | Disable strict checking of extra props                            |
 
 ### `hocName`
 Specifies the name of the resulting HOC. This name is added to the name of the wrapped component. For example, passing a component named `WelcomeMessage` to an HOC having the name `withModifiedName` results in a component with the name:
