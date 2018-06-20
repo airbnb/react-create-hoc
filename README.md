@@ -1,5 +1,12 @@
 # react-create-hoc
-Helper function for creating React Higher-Order Components (HOC) using best practices for managing prop types.
+Utility for creating React Higher-Order Components (HOC) using best practices for managing prop types.
+
+## Motivation
+The HOC pattern is a really important tool for code reuse when building UIs in React. [Prop types](https://reactjs.org/docs/typechecking-with-proptypes.html) are helpful for catching bugs before they reach production.
+
+Writing HOCs that properly handle the prop types of the components that they wrap, though, is difficult and requires a lot of boilerplate code. Ideally, an engineer should not shy away from moving logic to an HOC because it is too verbose to write one.
+
+To solve this problem, `react-create-hoc` provides a function that implements much of this boilerplate. It allows HOCs to be created with only a straightforward function that simply wraps a component in a new component.
 
 ## Usage
 
@@ -177,7 +184,7 @@ const FadingComponent = withFadeInOut(SomeComponent);
 ```
 
 ### `options.factory`
-Specifies the HOC "style" to use. This option is required.
+Specifies the HOC "style" to use. **This option is required**.
 
 When `factory` is `true`, the HOC takes params and returns a component-wrapping function. This is useful for cases where the HOC is reused with the same params or included in a call to Redux's `compose` function (or something similar). For example:
 ```jsx
