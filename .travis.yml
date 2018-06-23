@@ -1,5 +1,8 @@
 language: node_js
+os:
+ - linux
 node_js:
+  - "10"
   - "8"
   - "6"
   - "4"
@@ -8,18 +11,20 @@ before_install:
 install:
   - 'if [ "${TRAVIS_NODE_VERSION}" = "0.6" ] || [ "${TRAVIS_NODE_VERSION}" = "0.9" ]; then nvm install --latest-npm 0.8 && npm install && nvm use "${TRAVIS_NODE_VERSION}"; else npm install; fi;'
 script:
-  - 'if [ -n "${LINT-}" ]; then npm run lint; fi'
-  - 'if [ "${TEST-}" = true ]; then npm run test; fi'
-env:
-  global:
-    - TEST=true
-  matrix:
-    - REACT=0.14
-    - REACT=15.4
-    - REACT=15
-    - REACT=16
+  - 'if [ -n "${PRETEST-}" ]; then npm run pretest ; fi'
+  - 'if [ -n "${POSTTEST-}" ]; then npm run posttest ; fi'
+  - 'if [ -n "${COVERAGE-}" ]; then npm run test ; fi'
+  - 'if [ -n "${TEST-}" ]; then npm run tests-only ; fi'
 sudo: false
+env:
+  - TEST=true REACT=0.14
+  - TEST=true REACT=15.4
+  - TEST=true REACT=15
+  - TEST=true REACT=16
 matrix:
   fast_finish: true
   include:
-      env: LINT=true TEST=false
+    - node_js: "lts/*"
+      env: PRETEST=true
+    - node_js: "lts/*"
+      env: COVERAGE=true

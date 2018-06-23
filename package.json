@@ -8,7 +8,11 @@
     "prebuild": "npm run clean",
     "build": "babel src --out-dir dist",
     "lint": "eslint --ext .jsx,.js .",
-    "test": "jest",
+    "pretest": "npm run lint",
+    "test": "npm run tests-only",
+    "react": "enzyme-adapter-react-install 16",
+    "pretests-only": "npm run react",
+    "tests-only": "jest",
     "prepublish": "safe-publish-latest && npm run build"
   },
   "repository": {
@@ -34,7 +38,6 @@
     "chai": "^4.1.2",
     "chai-enzyme": "^1.0.0-beta.0",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-adapter-react-helper": "^1.2.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -44,7 +47,6 @@
     "jest": "^23.1.0",
     "prop-types": "^15.6.1",
     "react": "^0.14 || ^15 || ^16",
-    "react-dom": "^0.14 || ^15 || ^16",
     "rimraf": "^2.6.2",
     "safe-publish-latest": "^1.1.1",
     "sinon": "^4.5.0",
