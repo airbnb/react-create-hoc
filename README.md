@@ -86,8 +86,8 @@ createHOC(
 | [`hocName`](#hocname)                                             | `string`                                           | Yes       |         | Name of the resulting HOC                                         |
 | [`componentAndParamsToComponent`](#componentandparamstocomponent) | `(ComponentToWrap, ...params) => WrappedComponent` | Yes       |         | Function that wraps components passed to the HOC                  |
 | [`options.factory`](#optionsfactory)                              | `boolean`                                          | Yes       |         | Return a "factory"-style HOC                                      |
-| [`options.passedProps`](#optionspassedprops--)                    | `string[]`                                         |           | []      | List of props that are passed by the HOC to the wrapped component |
-| [`options.allowExtraProps`](#optionsallowextraprops--false)       | `boolean`                                          |           | false   | Disable strict checking of extra props                            |
+| [`options.passedProps`](#optionspassedprops--)                    | `string[]`                                         |           | `[]`    | List of props that are passed by the HOC to the wrapped component |
+| [`options.allowExtraProps`](#optionsallowextraprops--false)       | `boolean`                                          |           | `false` | Disable strict checking of extra props                            |
 
 ### `hocName`
 Specifies the name of the resulting HOC. This name is added to the name of the wrapped component. For example, passing a component named `WelcomeMessage` to an HOC having the name `withModifiedName` results in a component with the name:
@@ -200,7 +200,7 @@ const ComponentAWithSpecificStyles = withSpecificStyles(ComponentA);
 const ComponentBWithSpecificStyles = withSpecificStyles(ComponentB);
 ```
 
-When `factory` is `false`, the HOC takes params and returns a component-wrapping function. This is useful for cases where the HOC takes no params (other than the component to wrap) or when it's preferable to pass the params in the same call as the component. For example:
+When `factory` is `false`, the HOC takes both a component and additional params and returns a wrapped component. This is useful for cases where the HOC takes no params (other than the component to wrap) or when it's preferable to pass the params in the same call as the component. For example:
 ```jsx
 compose(
   withFlexWrapper,
@@ -214,7 +214,7 @@ withStyles(ComponentToWrap, { /* style definitions */ });
 Specifies which props are passed to the component-to-wrap. These props are removed from the wrapped component's prop types. By default, `passedProps` is `[]`.
 
 ### `options.allowExtraProps = false`
-Specifies whether the wrapped component should tolerate extra props being passed. By default, `allowExtraProps` is `false`.
+Specifies whether the wrapped component should allow extra props to be passed without causing prop type warnings. By default, `allowExtraProps` is `false`.
 
 ## Development
 ```
