@@ -2,8 +2,7 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import exact from 'prop-types-exact';
 import sloppy from 'prop-types-exact/build/sloppy';
 
-const getFactoryParamErrorMessage =
-  componentName => `The \`factory\` option must be \`true\` or \`false\`.
+const getFactoryParamErrorMessage = componentName => `The \`factory\` option must be \`true\` or \`false\`.
 
 Use \`factory: true\` when you want a HOC factory function that takes params:
 
@@ -46,8 +45,7 @@ export default function createHOC(
       );
 
       NewComponent.WrappedComponent = ComponentToWrap;
-      NewComponent.displayName =
-        `${hocName}(${ComponentToWrap.displayName || ComponentToWrap.name})`;
+      NewComponent.displayName = `${hocName}(${ComponentToWrap.displayName || ComponentToWrap.name})`;
 
       if (ComponentToWrap.propTypes) {
         const copiedProps = {

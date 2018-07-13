@@ -4,5 +4,8 @@
   "env": {
     "browser": true,
     "node": true
+  },
+  "rules": {
+    "react/jsx-one-expression-per-line": 0, // TODO: remove when upstream bug is fixed
   }
 }
