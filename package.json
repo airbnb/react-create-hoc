@@ -12,7 +12,7 @@
     "test": "npm run tests-only",
     "react": "enzyme-adapter-react-install 16",
     "pretests-only": "npm run react",
-    "tests-only": "jest",
+    "tests-only": "tape --require=babel-register --require=./test/_helpers.jsx 'test/**/*.js{,x}'",
     "prepublish": "safe-publish-latest && npm run build"
   },
   "repository": {
@@ -32,9 +32,9 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-jest": "^23.4.0",
     "babel-plugin-transform-replace-object-assign": "^1.0.0",
     "babel-preset-airbnb": "^2.5.1",
+    "babel-register": "^6.26.0",
     "casual": "^1.5.19",
     "chai": "^4.1.2",
     "chai-enzyme": "^1.0.0-beta.1",
@@ -45,14 +45,15 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.10.0",
-    "jest": "^23.4.1",
+    "object-inspect": "^1.6.0",
     "prop-types": "^15.6.2",
     "react": "^0.14 || ^15 || ^16",
     "rimraf": "^2.6.2",
     "safe-publish-latest": "^1.1.1",
     "sinon": "^4.5.0",
     "sinon-chai": "^3.2.0",
-    "sinon-sandbox": "^1.0.2"
+    "sinon-sandbox": "^1.0.2",
+    "tape": "^4.9.1"
   },
   "peerDependencies": {
     "react": "^0.14 || ^15 || ^16"
