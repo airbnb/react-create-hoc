@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/airbnb/react-create-hoc#readme",
   "dependencies": {
+    "airbnb-prop-types": "^2.10.0",
     "hoist-non-react-statics": "^2.5.5",
     "object.assign": "^4.1.0",
     "prop-types-exact": "^1.2.0"

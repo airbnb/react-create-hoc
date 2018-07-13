@@ -1,5 +1,6 @@
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import exact from 'prop-types-exact';
+import getComponentName from 'airbnb-prop-types/build/helpers/getComponentName';
 import sloppy from 'prop-types-exact/build/sloppy';
 
 const getFactoryParamErrorMessage = componentName => `The \`factory\` option must be \`true\` or \`false\`.
@@ -45,7 +46,7 @@ export default function createHOC(
       );
 
       NewComponent.WrappedComponent = ComponentToWrap;
-      NewComponent.displayName = `${hocName}(${ComponentToWrap.displayName || ComponentToWrap.name})`;
+      NewComponent.displayName = `${hocName}(${getComponentName(ComponentToWrap)})`;
 
       if (ComponentToWrap.propTypes) {
         const copiedProps = {
